@@ -12,6 +12,8 @@
 ### 安装pm2
 - brew install pm2 -g
 
+### 安装ngix
+- brew install nginx
 ### 安装 typescript
 - brew install typescript
 
@@ -65,5 +67,4 @@
 
 ## 查看所有的数据库表
 - show tables;
-
 
