@@ -14,6 +14,10 @@
 
 ### 安装ngix
 - brew install nginx
+
+### 安装svn
+- brew install svn
+
 ### 安装 typescript
 - brew install typescript
 
