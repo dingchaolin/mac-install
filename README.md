@@ -72,3 +72,6 @@
 ## 查看所有的数据库表
 - show tables;
 
+## 安装mongodb
+- brew install mongo
+- brew services start mongodb
