@@ -75,3 +75,9 @@
 ## 安装mongodb
 - brew install mongo
 - brew services start mongodb
+
+## 终端命令 查看端口的进程
+- sudo lsof -i :9000
+
+## 然后根据PID杀进程：
+- sudo kill -9 716
