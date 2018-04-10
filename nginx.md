@@ -10,6 +10,9 @@
 ### 重新加载配置文件
 - sudo nginx -s reload
 
+### 后台启动
+- brew services start nginx
+
 ### 错误
 - nginx: [error] invalid PID number “” in “/usr/local/var/run/nginx/nginx.pid”
 - sudo nginx -c /usr/local/etc/nginx/nginx.conf

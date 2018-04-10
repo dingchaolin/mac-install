@@ -12,7 +12,7 @@
 ## 测试
 - 进入 httpd/support
 - ab -n 4 -c 1 http://mirrors.hust.edu.cn/apache//httpd/
-
+- ab -n 全部请求数 -c 并发数 测试url
 ## ab测试命令简介
 ```
     -n在测试会话中所执行的请求个数。默认时，仅执行一个请求。
@@ -65,3 +65,46 @@
 ```
 
 - 参数很多,一般我们用 -c 和 -n 参数就可以了. 例如: ab -c 100 -n 10000 http://127.0.0.1/index.php 
+
+### 结果分析 
+- ab -n 1000 -c 50 http://www.newdev.gztest.com/
+```
+Server Software:         Microsoft-IIS/7.0
+Server Hostname:        www.newdev.gztest.com
+Server Port:            80
+Document Path:         
+Document Length:        82522 bytes  #请求文档大小
+
+Concurrency Level:      50           #并发数  
+Time taken for tests:   92.76140 seconds #全部请 求完成耗时
+Complete requests:      10000          #全部请求数
+Failed requests:        1974           #失败的请求
+  (Connect: 0, Length: 1974, Exceptions: 0)
+Write errors:           0
+Total transferred:      827019400 bytes   #总传输大小 
+HTML transferred:       825219400 bytes //整个场 景中的HTML内容传输量
+Requests per second:    108.61 [#/sec] (mean)   #每秒请 求数(平均)//大家最关心的指标之一，相当于 LR 中的每秒事务数，后面括 号中的 mean 表示这是一个平均值
+Time per request:       460.381 [ms] (mean)   #每次并发请求时间(所有并发) //大家最关心的指标之二，相当于 LR 中的平均事务响应时间， 后面括号中的 mean 表示这是一个平均值
+Time per request:       9.208 [ms] (mean, across all concurrent requests)   #每一请求时间(并发平均)  //每个请求实际运行时间的平均值
+Transfer rate:          8771.39 [Kbytes/sec] received    #传输速 率//平 均每秒网络上的流量，可以帮助排除是否存在网络流量过大导致响应时间延长的问题
+Percentage of the requests served within a certain time (ms)
+ 
+ 50%   2680
+  66%   2806
+  75%   2889
+  80%   2996
+  90%  11064
+  95%  20161
+  98%  21092
+  99%  21417
+ 100%  21483 (longest request)
+//整个场景中所有请求的响应情况。在场景中每个请求都有一个响应时间，其 中50％的用户响应时间小于2680毫秒，60％ 的用户响应时间小于2806毫秒，最大的响应时间小于21417毫秒
+由于对于并发请求，cpu实际上并不是同时处理的，而是按照每个 请求获得的时间片逐个轮转处理的，所以基本上第一个Time per request时间约等于第二个Time per request时间乘以并发请求数。
+
+Connection Times (ms)    #连接时 间
+             min  mean[+/-sd] median   max
+Connect(#连接):        0    0   2.1      0      46
+Processing(#处理):    31  458  94.7    438    1078
+Waiting(#等待):       15  437  87.5    422     938
+Total:         31  458  94.7    438    1078
+```
